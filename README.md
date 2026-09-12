@@ -4,6 +4,11 @@ This is a small Go API project I made to learn more about API security. I starte
 
 I used fake tenants and users only. The vulnerable branch is for local learning and should not be deployed.
 
+Disclaimer: This project had AI-assistance for:
+- initial Go code generation
+- Test-case and CI workflow drafting
+- Code-review suggestions and debugging assistance
+  
 ## What I worked on
 
 - Week 1: I made a basic multi-tenant API with two intentional security problems.
