@@ -1,0 +1,27 @@
+name: DevSecOps CI Pipeline
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  security-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.x'
+      - name: Formatting check
+        run: test -z "$(gofmt -l $(find . -name '*.go' -not -path './.git/*'))"
+      - name: Static analysis
+        run: go vet ./...
+      - name: Unit and security regression tests
+        run: go test -race -v ./...
+      - name: SAST (gosec)
+        run: |
+          go install github.com/securego/gosec/v2/cmd/gosec@v2.22.8
+          gosec ./...
